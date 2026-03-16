@@ -145,7 +145,8 @@ var _default = /*#__PURE__*/function (_Controller) {
         iframeContent.addEventListener('click', function (e) {
           for (var target = e.target; target && target !== this; target = target.parentNode) {
             if (target.matches('.select')) {
-              self.pathValue = target.dataset.path;
+              // self.pathValue = target.dataset.path;
+              self.pathValue = target.dataset.path.replace(/%5C/g, '/');
               self.fileManagerModalTarget.querySelector('.modal-footer button').click();
               break;
             }
@@ -208,7 +209,7 @@ function _pathUpdateEventListener2(data) {
 }
 function _toggleProgress2(show) {
   if (show) {
-    this.progressTarget.firstChild.style.width = '0%';
+    this.progressTarget.firstElementChild.style.width = '0%';
     this.progressTarget.classList.remove('d-none');
   } else {
     this.progressTarget.classList.add('d-none');
@@ -259,7 +260,7 @@ function _uploadFiles2(files) {
     };
     xhr.upload.onprogress = function (event) {
       var percent = event.loaded / event.total * 100;
-      _this4.progressTarget.firstChild.style.width = percent + '%';
+      _this4.progressTarget.firstElementChild.style.width = percent + '%';
     };
     xhr.send(data);
   }
